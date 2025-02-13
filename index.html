@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FOR H.E.R.</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <audio id="audio" controls preload="auto">
+        <source src="jontae_toxic_love_story_lyrics_aac_16850.m4a" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <div class="container container1">
+        <div class="heart"></div>
+    </div>
+    
+    <!-- Output container for the letter -->
+    <div class="center">
+        <div class="box container2" id="output" style="font-family:monospace; padding: 20px;"></div>
+    </div>
+
+    <script src="anime.min.js"></script>
+    <script>
+        // script to run hearts animation using anime.js
+        const container = document.querySelector('.container');
+        for (let i = 1; i <= 50; i++) {
+            const hearts = document.createElement('div');
+            hearts.classList.add('heart');
+            container.appendChild(hearts);
+        }
+
+        function animeHearts() {
+            anime({
+                targets: '.heart',
+                translateX: () => anime.random(-700, 700),
+                translateY: () => anime.random(-500, 500),
+                rotate: 45,
+                scale: () => anime.random(1, 5),
+                easing: 'easeInOutBack',
+                duration: 3000,
+                delay: anime.stagger(10),
+                complete: animeHearts,
+            });
+        }
+
+        animeHearts();
+    </script>
+
+    <script>
+        const letter = [
+            "Happy Valentine’s Day Baby Girl!",
+            "We both know I suck at this type of things,",
+            "But I still want you to know that with you?",
+            "Every single day feels special.",
+            "And I just want to remind you how much you mean to me.",
+            "Your smile brightens my days,",
+            "and your kindness makes me horny. lol",
+            "I may not have fancy gifts right now,",
+            "but what i do have is all my love and my best effort to atleast try and make you happy",
+            "Always.",
+            "Cause no matter what,",
+            "i'll always do everything I can to show you how much you mean to me",
+            "I love you.",
+            "and I want you all to myself.",
+            "The thought of losing you?",
+            "Hate it.",
+            "But knowing how childish and selfish i can be sometimes,",
+            "I wouldnt blame you for any decisions you'd make",
+            "Thank you for loving me as i am,",
+            "for making my life better just by being in it.",
+            "i'm so lucky to call you mine,",
+            "and I cant wait for all the little moments we'll keep creating together.",
+            "The love of your life,",
+            "Paul Tembo",
+            "and just so you know.",
+            "when i come there im getting you flowers just to annoy you lol",
+            "I LOVE YOU!"
+        ];
+
+        function typewriterEffect(text, speed = 50, callback) {
+            let i = 0;
+            function type() {
+                if (i < text.length) {
+                    document.getElementById("output").innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                } else if (callback) {
+                    setTimeout(callback, 2500); // Small pause before next line
+                }
+            }
+            type();
+        }
+
+        function startTyping() {
+            let index = 0;
+            function nextLine() {
+                if (index < letter.length) {
+                    const output = document.getElementById("output");
+                    output.innerHTML += "<br>"; // Add new line
+                    typewriterEffect(letter[index], 70, nextLine);
+                    index++;
+                }
+            }
+            nextLine();
+        }
+
+        // Function to start playing the audio on screen tap
+        function startMusicOnTap() {
+            const audio = document.getElementById("audio");
+            
+            // Listen for a tap (click) on the screen
+            document.body.addEventListener("click", function () {
+                // Play the audio when the screen is tapped/clicked
+                audio.play();
+
+                setTimeout(() => {
+                        console.log("5 seconds have passed! Executing code...");
+                        startTyping();
+                    }, 5000);
+            });
+
+        }
+
+        // Combining both window.onload functionalities
+        window.onload = function () {
+            startMusicOnTap();
+        };
+    </script>
+</body>
+</html>
